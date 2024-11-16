@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Stepper from "./components/stepper";
+import { ImageProvider } from "./context/ImageContext";
+import { ThemeProvider } from "./components/themeProvider";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,9 +30,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#030711] container mx-auto max-w-xl`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ImageProvider>
+            <Stepper />
+
+            {children}
+          </ImageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
